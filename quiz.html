@@ -26,7 +26,7 @@
         const questions = [];
         let currentQuestionIndex = 0;
 
-        fetch('URL_DE_TU_JSON_EN_GITHUB')
+        fetch('https://raw.githubusercontent.com/BIBLIASYESTUDIOS/jsonbiblequiz/refs/heads/main/quiz.json')
             .then(response => response.json())
             .then(data => {
                 questions.push(...data);

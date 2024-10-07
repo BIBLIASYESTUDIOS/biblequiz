@@ -23,7 +23,7 @@
     <script>
         const questions = []; // Esto se llenará con el contenido del archivo JSON.
 
-        fetch('https://raw.githubusercontent.com/BIBLIASYESTUDIOS/biblequiz/refs/heads/main/preguntas.json')
+        fetch('https://raw.githubusercontent.com/BIBLIASYESTUDIOS/jsonbiblequiz/refs/heads/main/quiz.json')
             .then(response => response.json())
             .then(data => {
                 questions.push(...data);

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; color: #333; }
+        .container { width: 80%; margin: auto; max-width: 600px; }
+        h1 { text-align: center; }
+        .question { margin: 20px 0; }
+        .answer { margin: 10px 0; }
+        button { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Biblical Quiz</h1>
+        <div id="quiz"></div>
+        <button id="submit">Submit</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        const questions = []; // Esto se llenará con el contenido del archivo JSON.
+
+        fetch('URL_DE_TU_JSON_EN_GITHUB')
+            .then(response => response.json())
+            .then(data => {
+                questions.push(...data);
+                loadQuiz();
+            });
+
+        function loadQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `<h3>${index + 1}. ${question.question}</h3>`;
+                
+                question.answers.forEach((answer, i) => {
+                    questionDiv.innerHTML += `
+                        <div class="answer">
+                            <input type="radio" name="question${index}" value="${answer}">
+                            ${answer}
+                        </div>`;
+                });
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        document.getElementById('submit').addEventListener('click', () => {
+            let score = 0;
+            questions.forEach((question, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected && selected.value === question.correctAnswer) {
+                    score++;
+                }
+            });
+            document.getElementById('result').innerText = `You scored ${score} out of ${questions.length}.`;
+        });
+    </script>
+</body>
+</html>
